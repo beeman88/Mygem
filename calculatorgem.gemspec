@@ -1,20 +1,20 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "mygem/version"
+require "calculatorgem/version"
 
 Gem::Specification.new do |s|
-  s.name        = "mygem"
-  s.version     = Mygem::VERSION
+  s.name        = "calculatorgem"
+  s.version     = CalculatorGem::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bryan Belyk"]
   s.email       = ["bbbelyk@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{My first gem}
-  s.description = %q{returns Hello World}
+  s.description = %q{calculates canadian payroll}
 
   s.add_development_dependency 'rspec'
 
-  s.rubyforge_project = "mygem"
+  s.rubyforge_project = "calculatorgem"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
