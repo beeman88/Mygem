@@ -14,7 +14,7 @@ describe "federal tax" do
     subject.L = 0
   end
 
-  context "annual income" do
+  context "A - annual income" do
 
     it "when P = 27, I = 1000, F = 250, F2 = 500, U1 = 150, HD = 500, F1 = 300 then A = 1900" do
       subject.P = 27
@@ -27,7 +27,7 @@ describe "federal tax" do
     end
   end
 
-  context "total annual federal tax" do
+  context "t1" do
 
     it "when annual income is negative, T = L" do
       subject.stub(:a).and_return(-100)
@@ -36,7 +36,7 @@ describe "federal tax" do
     end
   end
 
-  context "federal rate" do
+  context "R - Federal Rate" do
 
     it "when A = 26,000 then R = .15" do
       subject.stub(:a).and_return(26000)
@@ -84,7 +84,6 @@ describe "federal tax" do
     end
 
   end
-
 
   context "k1" do
 
@@ -135,6 +134,58 @@ describe "federal tax" do
       subject.stub(:a).and_return(1000)
       subject.k4.should == 150.00
     end
+  end
+
+  context "t3" do
+
+    it "QC employee uses K2Q for T3" do
+      subject.stub(:r).and_return(0.15)
+      subject.stub(:a).and_return(2000)
+      subject.stub(:k).and_return(0)
+      subject.stub(:k1).and_return(0)
+      subject.stub(:k2q).and_return(100)
+      subject.K3 = 0
+      subject.province = "QC"
+      subject.stub(:k4).and_return(0)
+      subject.t3.should == 200
+    end
+
+    it "non QC employee uses K2 for T3" do
+      subject.stub(:r).and_return(0.15)
+      subject.stub(:a).and_return(2000)
+      subject.stub(:k).and_return(0)
+      subject.stub(:k1).and_return(0)
+      subject.stub(:k2).and_return(222)
+      subject.K3 = 0
+      subject.province = "SK"
+      subject.stub(:k4).and_return(0)
+      subject.t3.should == 78
+    end
+
+    it "t3 can never be negative" do
+      subject.stub(:r).and_return(0.15)
+      subject.stub(:a).and_return(2000)
+      subject.stub(:k).and_return(2000)
+      subject.stub(:k1).and_return(0)
+      subject.stub(:k2).and_return(0)
+      subject.K3 = 0
+      subject.province = "SK"
+      subject.stub(:k4).and_return(0)
+      subject.t3.should == 0
+    end
+
+    it "t3 is rate * income minus k values" do
+      subject.stub(:r).and_return(0.15)
+      subject.stub(:a).and_return(2000)
+      subject.stub(:k).and_return(11.11)
+      subject.stub(:k1).and_return(22.22)
+      subject.stub(:k2).and_return(33.33)
+      subject.K3 = 44.44
+      subject.province = "SK"
+      subject.stub(:k4).and_return(55.55)
+      subject.t3.should == 133.35
+    end
+
   end
 
 end

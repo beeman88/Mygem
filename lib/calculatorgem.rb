@@ -22,7 +22,9 @@ module CalculatorGem
                   :TC,
                   :K3,
                   :province,
-                  :birthday
+                  :birthday,
+                  :tt,
+                  :QPIP_YTD
 
     def initialize (tax_table)
       @tt = TaxTableFactory.get_tax_table tax_table
@@ -42,6 +44,14 @@ module CalculatorGem
       calc = round (@tt.QC_EI_RATE * @I)
       qc_ei = max < calc ? max : calc
       qc_ei < 0 ? 0 : qc_ei
+    end
+
+    def qpip
+      return 0 unless province == "QC"
+      max = round (@tt.QPIP_MAX - @QPIP_YTD)
+      calc = round (@tt.QPIP_RATE * @I)
+      qpip = max < calc ? max : calc
+      qpip < 0 ? 0 : qpip
     end
 
     def c
@@ -79,22 +89,43 @@ module CalculatorGem
     end
 
     def k2
-      cpp_calc = @P * c
-      cpp_calc = cpp_calc < @tt.CPP_MAX ? cpp_calc : @tt.CPP_MAX
-      k2_cpp = @tt.FIRST_FED_RATE * cpp_calc
-
       ei_calc = @P * ei
       ei_calc = ei_calc < @tt.EI_MAX ? ei_calc : @tt.EI_MAX
-      k2_ei = @tt.FIRST_FED_RATE * ei_calc
+      ei_portion = @tt.FIRST_FED_RATE * ei_calc
 
-      round (k2_cpp + k2_ei)
+      round (cpp_portion + ei_portion)
     end
+
+    def k2q
+      qc_ei_calc = @P * qc_ei
+      qc_ei_calc = qc_ei_calc < @tt.QC_EI_MAX ? qc_ei_calc : @tt.QC_EI_MAX
+      qc_ei_portion = @tt.FIRST_FED_RATE * qc_ei_calc
+
+      qpip_calc = @P * qpip
+      qpip_calc = qpip_calc < @tt.QPIP_MAX ? qpip_calc : @tt.QPIP_MAX
+      qpip_portion = @tt.FIRST_FED_RATE * qpip_calc
+
+      round (cpp_portion + qc_ei_portion + qpip_portion)
+    end
+
+#    def k3
+#      @K3
+#    end
 
     def k4
       calc = round (@tt.FIRST_FED_RATE * a)
       min = round (@tt.FIRST_FED_RATE * @tt.K4_MIN)
       k4 = min < calc ? min : calc
       k4 < 0 ? 0 : k4
+    end
+
+    def t3
+      if province == "QC"
+        qc_t3 = (r * a) - k - k1 - k2q - @K3 - k4
+        return round (qc_t3 < 0 ? 0 : qc_t3)
+      end
+      t3_calc = (r * a) - k - k1 - k2 - @K3 - k4
+      round (t3_calc < 0 ? 0 : t3_calc)
     end
 
     private
@@ -105,6 +136,12 @@ module CalculatorGem
     def age
       now = Time.now.utc.to_date
       now.year - @birthday.year - ((now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1)
+    end
+
+    def cpp_portion
+      cpp_calc = @P * c
+      cpp_calc = cpp_calc < @tt.CPP_MAX ? cpp_calc : @tt.CPP_MAX
+      @tt.FIRST_FED_RATE * cpp_calc
     end
 
   end
