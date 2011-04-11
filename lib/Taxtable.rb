@@ -45,7 +45,13 @@ module Taxtable
 
       FIRST_FED_RATE = FED_RATES[0][1]
 
-      K4_MIN = 1065
+      K4_MAX = 1065
+
+      FED_LAB_TC_MAX = 750.00
+
+      QC_T1_RATE = 0.165
+      OS_T1_RATE = 0.48
+
     end
 
     class Tbl201007 < TaxTable
@@ -77,7 +83,12 @@ module Taxtable
 
       FIRST_FED_RATE = FED_RATES[0][1]
 
-      K4_MIN = 1065
+      K4_MAX = 1065
+
+      FED_LAB_TC_MAX = 750.00
+
+      QC_T1_RATE = 0.165
+      OS_T1_RATE = 0.48
 
     end
 

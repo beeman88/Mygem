@@ -24,14 +24,15 @@ module CalculatorGem
                   :province,
                   :birthday,
                   :tt,
-                  :QPIP_YTD
+                  :QPIP_YTD,
+                  :FED_LAB_TC
 
     def initialize (tax_table)
       @tt = TaxTableFactory.get_tax_table tax_table
     end
 
     def ei
-      return 0 if province == "QC"
+      return 0 if quebec?
       max = round (@tt.EI_MAX - @D1)
       calc = round (@tt.EI_RATE * @I)
       ei = max < calc ? max : calc
@@ -39,7 +40,7 @@ module CalculatorGem
     end
 
     def qc_ei
-      return 0 unless province == "QC"
+      return 0 unless quebec?
       max = round (@tt.QC_EI_MAX - @D1)
       calc = round (@tt.QC_EI_RATE * @I)
       qc_ei = max < calc ? max : calc
@@ -47,7 +48,7 @@ module CalculatorGem
     end
 
     def qpip
-      return 0 unless province == "QC"
+      return 0 unless quebec?
       max = round (@tt.QPIP_MAX - @QPIP_YTD)
       calc = round (@tt.QPIP_RATE * @I)
       qpip = max < calc ? max : calc
@@ -114,18 +115,44 @@ module CalculatorGem
 
     def k4
       calc = round (@tt.FIRST_FED_RATE * a)
-      min = round (@tt.FIRST_FED_RATE * @tt.K4_MIN)
+      min = round (@tt.FIRST_FED_RATE * @tt.K4_MAX)
       k4 = min < calc ? min : calc
       k4 < 0 ? 0 : k4
     end
 
     def t3
-      if province == "QC"
+      if quebec?
         qc_t3 = (r * a) - k - k1 - k2q - @K3 - k4
         return round (qc_t3 < 0 ? 0 : qc_t3)
       end
       t3_calc = (r * a) - k - k1 - k2 - @K3 - k4
       round (t3_calc < 0 ? 0 : t3_calc)
+    end
+
+    def lcf
+      calc = round (@tt.FIRST_FED_RATE * @FED_LAB_TC)
+      max = round (@tt.FED_LAB_TC_MAX)
+      lcf = max < calc ? max : calc
+      lcf < 0 ? 0 : lcf
+    end
+
+    def t1
+      if quebec?
+        qc_calc = t3 - lcf
+        qc_calc < 0 ? 0 : qc_calc
+
+        adj = @tt.QC_T1_RATE * t3
+        qc_t1 = round (qc_calc - adj)
+        return qc_t1 < 0 ? 0 : qc_t1
+      end
+
+      if outside_canada?
+        os_t1 = round ((t3 + @tt.OS_T1_RATE * t3) - lcf)
+        return os_t1 < 0 ? 0 : os_t1
+      end
+
+      t1 = round (t3 - lcf)
+      t1 < 0 ? 0 : t1
     end
 
     private
@@ -142,6 +169,14 @@ module CalculatorGem
       cpp_calc = @P * c
       cpp_calc = cpp_calc < @tt.CPP_MAX ? cpp_calc : @tt.CPP_MAX
       @tt.FIRST_FED_RATE * cpp_calc
+    end
+
+    def quebec?
+      province == "QC"
+    end
+
+    def outside_canada?
+      province == "OS"
     end
 
   end

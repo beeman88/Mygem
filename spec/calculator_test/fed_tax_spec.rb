@@ -188,5 +188,84 @@ describe "federal tax" do
 
   end
 
+  context "lcf" do
+
+    it "When approved shared purchase = 2000 then LCF = 300" do
+      subject.FED_LAB_TC = 2000
+      subject.lcf.should == 300
+    end
+
+    it "When approved shared purchase =  6000 then LCF = 750" do
+      subject.FED_LAB_TC = 6000
+      subject.lcf.should == 750
+    end
+
+    it "When approved shared purchase = 0 then LCF = 0" do
+      subject.FED_LAB_TC = 0
+      subject.lcf.should == 0
+    end
+
+  end
+
+  context "t1" do
+
+    it "When employees province is not QC, T3 = 700, LCF = 750 then T1 = 0" do
+      subject.province = "BC"
+      subject.stub(:t3).and_return(700)
+      subject.stub(:lcf).and_return(750)
+      subject.t1.should == 0
+    end
+
+    it "When employees province is not QC, T3 = 6000, LCF = 0 then T1 = 6000" do
+      subject.province = "BC"
+      subject.stub(:t3).and_return(6000)
+      subject.stub(:lcf).and_return(0)
+      subject.t1.should == 6000
+    end
+
+    it "When employees province is QC, T3 = 700, LCF = 750 then T1 = 0" do
+      subject.province = "QC"
+      subject.stub(:t3).and_return(700)
+      subject.stub(:lcf).and_return(750)
+      subject.t1.should == 0
+    end
+
+    it "When employees province is QC, T3 = 865, LCF = 750 then T1 = 0" do
+      subject.province = "QC"
+      subject.stub(:t3).and_return(865)
+      subject.stub(:lcf).and_return(750)
+      subject.t1.should == 0
+    end
+
+    it "When employees province is QC, T3 = 6000, LCF = 0 then T1 = 5010" do
+      subject.province = "QC"
+      subject.stub(:t3).and_return(6000)
+      subject.stub(:lcf).and_return(0)
+      subject.t1.should == 5010
+    end
+
+    it "When employee is from outside Canada, T3 = 500, LCF = 750 then T1 = 0" do
+      subject.province = "OS"
+      subject.stub(:t3).and_return(500)
+      subject.stub(:lcf).and_return(750)
+      subject.t1.should == 0
+    end
+
+    it "When employee is from outside Canada, T3 = 700, LCF = 750 then T1 = 286" do
+      subject.province = "OS"
+      subject.stub(:t3).and_return(700)
+      subject.stub(:lcf).and_return(750)
+      subject.t1.should == 286
+    end
+
+    it "When employee is from outside Canada, T3 = 6000, LCF = 0 then T1 = 8880" do
+      subject.province = "OS"
+      subject.stub(:t3).and_return(6000)
+      subject.stub(:lcf).and_return(0)
+      subject.t1.should == 8880
+    end
+
+  end
+
 end
 
