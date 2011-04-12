@@ -155,6 +155,10 @@ module CalculatorGem
       t1 < 0 ? 0 : t1
     end
 
+    def t1_per
+      round (t1 / @P)
+    end
+
     private
     def round(amt)
       ("%.2f" % amt).to_f

@@ -14,7 +14,7 @@ describe "federal tax" do
     subject.L = 0
   end
 
-  context "A - annual income" do
+  context "A - annual taxable income" do
 
     it "when P = 27, I = 1000, F = 250, F2 = 500, U1 = 150, HD = 500, F1 = 300 then A = 1900" do
       subject.P = 27
@@ -27,16 +27,7 @@ describe "federal tax" do
     end
   end
 
-  context "t1" do
-
-    it "when annual income is negative, T = L" do
-      subject.stub(:a).and_return(-100)
-      subject.L = 100
-      subject.t.should == 100
-    end
-  end
-
-  context "R - Federal Rate" do
+  context "R - federal tax rate" do
 
     it "when A = 26,000 then R = .15" do
       subject.stub(:a).and_return(26000)
@@ -47,7 +38,6 @@ describe "federal tax" do
       subject.stub(:a).and_return(52000)
       subject.r.should == 0.22
     end
-
 
     it "when A = 104,000 then R = .26" do
       subject.stub(:a).and_return(104000)
@@ -61,7 +51,7 @@ describe "federal tax" do
 
   end
 
-  context "k" do
+  context "K - federal constant" do
 
     it "when A = 26,000 then K = 0" do
       subject.stub(:a).and_return(26000)
@@ -85,7 +75,7 @@ describe "federal tax" do
 
   end
 
-  context "k1" do
+  context "K1 - federal non refundable personal tax credit" do
 
     it "when TC = 10,527 then K1 = 1,579.05" do
       subject.TC = 10527
@@ -99,7 +89,7 @@ describe "federal tax" do
 
   end
 
-  context "k2" do
+  context "K2 - federal cpp contributions and EI premium tax credits for the year" do
 
     it "when P = 26, C = 42.84, EI = 17.80, then K2 = 236.50 (IE = 1000)" do
       subject.stub(:c).and_return(42.84)
@@ -123,7 +113,7 @@ describe "federal tax" do
 
   end
 
-  context "k4" do
+  context "K4 - canada employment credit" do
 
     it "when A = 2000 then K4 = 159.75" do
       subject.stub(:a).and_return(2000)
@@ -136,7 +126,7 @@ describe "federal tax" do
     end
   end
 
-  context "t3" do
+  context "T3 - annual basic federal tax" do
 
     it "QC employee uses K2Q for T3" do
       subject.stub(:r).and_return(0.15)
@@ -188,7 +178,7 @@ describe "federal tax" do
 
   end
 
-  context "lcf" do
+  context "LCF - federal labour-sponsored tax credit" do
 
     it "When approved shared purchase = 2000 then LCF = 300" do
       subject.FED_LAB_TC = 2000
@@ -207,7 +197,13 @@ describe "federal tax" do
 
   end
 
-  context "t1" do
+  context "T1 - annual federal tax deduction" do
+
+    it "when annual income is negative, T = L" do
+      subject.stub(:a).and_return(-100)
+      subject.L = 100
+      subject.t.should == 100
+    end
 
     it "When employees province is not QC, T3 = 700, LCF = 750 then T1 = 0" do
       subject.province = "BC"
@@ -265,6 +261,17 @@ describe "federal tax" do
       subject.t1.should == 8880
     end
 
+  end
+
+  context "Federal Tax Per Pay Period" do
+
+    it "when T1 = 1500.00, P = 26, then Fed Tax Per Period = " do
+      subject.province = "BC"
+      subject.stub(:t1).and_return(1500.00)
+      subject.P = 26
+      subject.t1_per.should == 57.69
+
+    end
   end
 
 end
