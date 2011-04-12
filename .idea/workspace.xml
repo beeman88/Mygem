@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3be4ac13-c2e7-4285-8d00-a9fdfbe0c80a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/Taxtable.rb" afterPath="$PROJECT_DIR$/lib/Taxtable.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/calculatorgem.rb" afterPath="$PROJECT_DIR$/lib/calculatorgem.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb" afterPath="$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb" />
     </list>
@@ -31,7 +31,7 @@
       <file leaf-file-name="calculatorgem.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/calculatorgem.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="147" column="2" selection-start="3300" selection-end="3300" vertical-scroll-proportion="3.358871">
+            <state line="155" column="24" selection-start="3517" selection-end="3517" vertical-scroll-proportion="0.8206897">
               <folding />
             </state>
           </provider>
@@ -40,7 +40,7 @@
       <file leaf-file-name="fed_tax_spec.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="264" column="30" selection-start="6828" selection-end="6828" vertical-scroll-proportion="0.0">
+            <state line="283" column="5" selection-start="7620" selection-end="7620" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -76,7 +76,16 @@
       <file leaf-file-name="Taxtable.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/Taxtable.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="0" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+            <state line="32" column="77" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".rvmrc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.rvmrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -114,7 +123,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/mygem.gemspec" />
         <option value="$PROJECT_DIR$/spec/models/mytest_spec.rb" />
         <option value="$PROJECT_DIR$/spec/mygem_test/mygem_spec.rb" />
         <option value="$PROJECT_DIR$/lib/mygem.rb" />
@@ -127,8 +135,9 @@
         <option value="$PROJECT_DIR$/lib/taxtable.rb" />
         <option value="$PROJECT_DIR$/spec/calculator_test/taxtable_spec.rb" />
         <option value="$PROJECT_DIR$/spec/calculator_test/ei_spec.rb" />
-        <option value="$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb" />
         <option value="$PROJECT_DIR$/lib/Taxtable.rb" />
+        <option value="$PROJECT_DIR$/.rvmrc" />
+        <option value="$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb" />
         <option value="$PROJECT_DIR$/lib/calculatorgem.rb" />
       </list>
     </option>
@@ -159,7 +168,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -226,14 +235,14 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="RubyRunConfigurationType" factoryName="Ruby">
@@ -281,21 +290,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1389" height="878" extended-state="6" />
+    <frame x="-1280" y="-39" width="1280" height="1024" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15457876" sideWeight="0.67048347" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16082802" sideWeight="0.9972028" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -359,35 +368,38 @@
         <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.rvmrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/calculator_test/cpp_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="7" selection-start="712" selection-end="713" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/spec/calculator_test/ei_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="25" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/calculator_test/cpp_spec.rb">
+    <entry file="file://$PROJECT_DIR$/lib/Taxtable.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="7" selection-start="712" selection-end="713" vertical-scroll-proportion="0.0">
+        <state line="32" column="77" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/calculator_test/fed_tax_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="264" column="30" selection-start="6828" selection-end="6828" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Taxtable.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+        <state line="283" column="5" selection-start="7620" selection-end="7620" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/calculatorgem.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="2" selection-start="3300" selection-end="3300" vertical-scroll-proportion="3.358871">
+        <state line="155" column="24" selection-start="3517" selection-end="3517" vertical-scroll-proportion="0.8206897">
           <folding />
         </state>
       </provider>

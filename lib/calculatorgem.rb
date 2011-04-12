@@ -67,10 +67,6 @@ module CalculatorGem
       round ((@P * (@I - @F - @F2 - @U1)) - @HD - @F1)
     end
 
-    def t
-      return @L if a < 0
-    end
-
     def r
       @tt.FED_RATES.each do |threshold, rate|
         return rate if threshold.nil?
@@ -155,8 +151,10 @@ module CalculatorGem
       t1 < 0 ? 0 : t1
     end
 
-    def t1_per
-      round (t1 / @P)
+    #TODO no provincial tax included
+    def t
+      return @L if a < 0
+      round ((t1 / @P) +@L)
     end
 
     private

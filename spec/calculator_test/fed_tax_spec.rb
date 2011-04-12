@@ -199,12 +199,6 @@ describe "federal tax" do
 
   context "T1 - annual federal tax deduction" do
 
-    it "when annual income is negative, T = L" do
-      subject.stub(:a).and_return(-100)
-      subject.L = 100
-      subject.t.should == 100
-    end
-
     it "When employees province is not QC, T3 = 700, LCF = 750 then T1 = 0" do
       subject.province = "BC"
       subject.stub(:t3).and_return(700)
@@ -263,15 +257,30 @@ describe "federal tax" do
 
   end
 
-  context "Federal Tax Per Pay Period" do
+  #TODO add provincial tax
+  context "T - Tax Deduction Per Pay Period" do
 
-    it "when T1 = 1500.00, P = 26, then Fed Tax Per Period = " do
+    it "when annual income is negative, T = L" do
+      subject.stub(:a).and_return(-100)
+      subject.L = 100
+      subject.t.should == 100
+    end
+
+    it "when T1 = 1500.00, P = 26, then Fed Tax Per Period = 57.99" do
       subject.province = "BC"
       subject.stub(:t1).and_return(1500.00)
       subject.P = 26
-      subject.t1_per.should == 57.69
-
+      subject.t.should == 57.69
     end
+
+    it "when T1 = 1500.00, P = 26, L = 100.00 then Fed Tax Per Period = 157.69" do
+      subject.province = "BC"
+      subject.stub(:t1).and_return(1500.00)
+      subject.P = 26
+      subject.L = 100.00
+      subject.t.should == 157.69
+    end
+
   end
 
 end
