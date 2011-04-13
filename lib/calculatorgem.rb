@@ -157,6 +157,15 @@ module CalculatorGem
       round ((t1 / @P) +@L)
     end
 
+    def total_deductions
+      return round (t + c + qc_ei + @F + @U1 + @F2) if quebec?
+      round (t + c + ei + @F + @U1 + @F2)
+    end
+
+    def net
+      @I - total_deductions
+    end
+
     private
     def round(amt)
       ("%.2f" % amt).to_f

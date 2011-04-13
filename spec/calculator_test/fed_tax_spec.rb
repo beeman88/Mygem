@@ -283,5 +283,24 @@ describe "federal tax" do
 
   end
 
+  context "helper methods" do
+
+    it "total deductions" do
+      subject.stub(:t).and_return(1000.00)
+      subject.stub(:c).and_return(200.00)
+      subject.stub(:ei).and_return(30.00)
+      subject.F = 4.00
+      subject.U1 = 0.50
+      subject.F2 = 0.06
+      subject.total_deductions.should == 1234.56
+    end
+
+    it "net" do
+      subject.stub(:total_deductions).and_return(456.78)
+      subject.I = 1000.00
+      subject.net.should == 543.22
+    end
+  end
+
 end
 
