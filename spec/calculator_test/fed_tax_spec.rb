@@ -178,6 +178,7 @@ describe "federal tax" do
 
   end
 
+  #TODO review based on LCP
   context "LCF - federal labour-sponsored tax credit" do
 
     it "When approved shared purchase = 2000 then LCF = 300" do
