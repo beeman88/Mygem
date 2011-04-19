@@ -786,7 +786,7 @@ Form TD1" do
     end
 
     context "KP1 - Provincial non refundable tax credit" do
-      it "KP1 = .0704 * TCP (default tCP is 10,527)" do
+      it "KP1 = .0704 * TCP (default TCP is 10,527)" do
       end
     end
 

@@ -15,8 +15,8 @@ describe "federal tax" do
   end
 
   context "A - annual taxable income" do
-
-    it "when P = 27, I = 1000, F = 250, F2 = 500, U1 = 150, HD = 500, F1 = 300 then A = 1900" do
+    # when P = 27, I = 1000, F = 250, F2 = 500, U1 = 150, HD = 500, F1 = 300 then A = 1900" do
+    it "A = [P * (I - F -F2 -U1)] - HD - F1" do
       subject.P = 27
       subject.F = 250
       subject.F2 = 500
@@ -29,22 +29,22 @@ describe "federal tax" do
 
   context "R - federal tax rate" do
 
-    it "when A = 26,000 then R = .15" do
+    it "when 0 < A <= 41,544 then R = .15" do
       subject.stub(:a).and_return(26000)
       subject.r.should == 0.15
     end
 
-    it "when A = 52,000 then R = .22" do
+    it "when 41,544 < A <= 83,088 then R = .22" do
       subject.stub(:a).and_return(52000)
       subject.r.should == 0.22
     end
 
-    it "when A = 104,000 then R = .26" do
+    it "when 83,088 < A <= 128,800 then R = .26" do
       subject.stub(:a).and_return(104000)
       subject.r.should == 0.26
     end
 
-    it "when A = 130,000 then R = .29" do
+    it "when A > 128,800 then R = .29" do
       subject.stub(:a).and_return(130000)
       subject.r.should == 0.29
     end
@@ -53,22 +53,22 @@ describe "federal tax" do
 
   context "K - federal constant" do
 
-    it "when A = 26,000 then K = 0" do
+    it "when 0 < A <= 41,544 then K = 0" do
       subject.stub(:a).and_return(26000)
       subject.k.should == 0
     end
 
-    it "when A = 52,000 then K = 2,908" do
+    it "when 41,544 < A <= 83,088 then K = 2,908" do
       subject.stub(:a).and_return(52000)
       subject.k.should == 2908
     end
 
-    it "when A = 104,000 then K = 6,232" do
+    it "when 83,088 < A <= 128,800 then K = 6,232" do
       subject.stub(:a).and_return(104000)
       subject.k.should == 6232
     end
 
-    it "when A = 130,000 then K = 10.096" do
+    it "when A > 128,800 then K = 10.096" do
       subject.stub(:a).and_return(130000)
       subject.k.should == 10096
     end
@@ -77,12 +77,12 @@ describe "federal tax" do
 
   context "K1 - federal non refundable personal tax credit" do
 
-    it "when TC = 10,527 then K1 = 1,579.05" do
+    it "K1 = .15 * TC (default TC = 10,527 then K1 = 1,579.05)" do
       subject.TC = 10527
       subject.k1.should == 1579.05
     end
 
-    it "when TC = 27,447 then K1 = 4,117.05" do
+    it "K1 = .15 * TC (when TC = 27,447 then K1 = 4,117.05)" do
       subject.TC = 27447
       subject.k1.should == 4117.05
     end
@@ -90,37 +90,39 @@ describe "federal tax" do
   end
 
   context "K2 - federal cpp contributions and EI premium tax credits for the year" do
-
-    it "when P = 26, C = 42.84, EI = 17.80, then K2 = 236.50 (IE = 1000)" do
+    # when P = 26, C = 42.84, EI = 17.80, then K2 = 236.50 (IE = 1000)
+    it "multiply the CPP and EI portions by 0.1500" do
       subject.stub(:c).and_return(42.84)
       subject.stub(:ei).and_return(17.80)
       subject.k2.should == 236.50
     end
 
-    it "When P = 26,  C = 77.49, EI = 30.26, then K2 =  420.22 (IE = 1700)" do
+    # when P = 26,  C = 92.34, EI = 35.60, then K2 =  450.65 (IE = 2000)
+    it "when the CPP portion reaches the maximum use 2,217.60" do
+      subject.stub(:c).and_return(92.34)
+      subject.stub(:ei).and_return(25.60)
+      subject.I = 2000
+      subject.k2.should == 432.48
+    end
+
+    # when P = 26,  C = 77.49, EI = 35.60, then K2 =  420.22 (IE = 1700)
+    it "when the EI portion reaches the maximum use 786.76" do
       subject.stub(:c).and_return(77.49)
       subject.stub(:ei).and_return(30.26)
       subject.I = 1700
       subject.k2.should == 420.22
     end
 
-    it "when P = 26,  C = 92.34, EI = 35.60, then K2 =  450.65 (IE = 2000)" do
-      subject.stub(:c).and_return(92.34)
-      subject.stub(:ei).and_return(35.60)
-      subject.I = 2000
-      subject.k2.should == 450.65
-    end
-
   end
 
   context "K4 - canada employment credit" do
 
-    it "when A = 2000 then K4 = 159.75" do
+    it "when .15 * A >= 159.75 then K4 = 159.75" do
       subject.stub(:a).and_return(2000)
       subject.k4.should == 159.75
     end
 
-    it "when A = 1000 then K4 = 150.00" do
+    it "when .15 * A < 159.75 then K4 = .15 * A" do
       subject.stub(:a).and_return(1000)
       subject.k4.should == 150.00
     end
@@ -152,7 +154,7 @@ describe "federal tax" do
       subject.t3.should == 78
     end
 
-    it "t3 can never be negative" do
+    it "T3 can never be negative" do
       subject.stub(:r).and_return(0.15)
       subject.stub(:a).and_return(2000)
       subject.stub(:k).and_return(2000)
@@ -164,7 +166,7 @@ describe "federal tax" do
       subject.t3.should == 0
     end
 
-    it "t3 is rate * income minus k values" do
+    it "T3 is rate * income minus K values" do
       subject.stub(:r).and_return(0.15)
       subject.stub(:a).and_return(2000)
       subject.stub(:k).and_return(11.11)
@@ -178,15 +180,15 @@ describe "federal tax" do
 
   end
 
-  #TODO review based on LCP
   context "LCF - federal labour-sponsored tax credit" do
-
-    it "When approved shared purchase = 2000 then LCF = 300" do
+    # when approved shared purchase = 2000 then LCF = 300
+    it "when approved shared purchase * .15 < 750 then LCF = .15 * approved share purchase" do
       subject.FED_LAB_TC = 2000
       subject.lcf.should == 300
     end
 
-    it "When approved shared purchase =  6000 then LCF = 750" do
+    # when approved shared purchase =  6000 then LCF = 750
+    it "when approved shared purchase * .15 >= 750 then LCF = 750" do
       subject.FED_LAB_TC = 6000
       subject.lcf.should == 750
     end
@@ -199,57 +201,64 @@ describe "federal tax" do
   end
 
   context "T1 - annual federal tax deduction" do
-
-    it "When employees province is not QC, T3 = 700, LCF = 750 then T1 = 0" do
+    # when employees province is not QC, T3 = 700, LCF = 750 then T1 = 0
+    it "when employees province is not QC T1 can never be negative" do
       subject.province = "BC"
       subject.stub(:t3).and_return(700)
       subject.stub(:lcf).and_return(750)
       subject.t1.should == 0
     end
 
-    it "When employees province is not QC, T3 = 6000, LCF = 0 then T1 = 6000" do
+    # When employees province is not QC, T3 = 6000, LCF = 0 then T1 = 6000
+    it "When employees province is not QC, then T1 = T3 - LCF" do
       subject.province = "BC"
       subject.stub(:t3).and_return(6000)
       subject.stub(:lcf).and_return(0)
       subject.t1.should == 6000
     end
 
-    it "When employees province is QC, T3 = 700, LCF = 750 then T1 = 0" do
+    # when employees province is QC, T3 = 700, LCF = 750 then T1 = 0
+    it "when employees province is QC, T1 can never be negative" do
       subject.province = "QC"
       subject.stub(:t3).and_return(700)
       subject.stub(:lcf).and_return(750)
       subject.t1.should == 0
     end
 
-    it "When employees province is QC, T3 = 865, LCF = 750 then T1 = 0" do
+    # When employees province is QC, T3 = 865, LCF = 750 then T1 = 0
+    it "when employees province is QC and (T3 - LCF) - (.165 * T3) < 0 then T1 = 0" do
       subject.province = "QC"
       subject.stub(:t3).and_return(865)
       subject.stub(:lcf).and_return(750)
       subject.t1.should == 0
     end
 
-    it "When employees province is QC, T3 = 6000, LCF = 0 then T1 = 5010" do
+    # when employees province is QC, T3 = 6000, LCF = 0 then T1 = 5010
+    it "when employees province is QC then T1 = (T3 - LCF) - (.165 * T3)" do
       subject.province = "QC"
       subject.stub(:t3).and_return(6000)
       subject.stub(:lcf).and_return(0)
       subject.t1.should == 5010
     end
 
-    it "When employee is from outside Canada, T3 = 500, LCF = 750 then T1 = 0" do
+    # When employee is from outside Canada, T3 = 500, LCF = 750 then T1 = 0
+    it "When employee is from outside Canada, T1 can never be negative" do
       subject.province = "OS"
       subject.stub(:t3).and_return(500)
       subject.stub(:lcf).and_return(750)
       subject.t1.should == 0
     end
 
-    it "When employee is from outside Canada, T3 = 700, LCF = 750 then T1 = 286" do
+    # when employee is from outside Canada, T3 = 700, LCF = 750 then T1 = 286
+    it "when employee is from outside Canada, T1 = (T3 + (.48 * T3) - LCF)" do
       subject.province = "OS"
       subject.stub(:t3).and_return(700)
       subject.stub(:lcf).and_return(750)
       subject.t1.should == 286
     end
 
-    it "When employee is from outside Canada, T3 = 6000, LCF = 0 then T1 = 8880" do
+    # when employee is from outside Canada, T3 = 6000, LCF = 0 then T1 = 8880
+    it "when employee is from outside Canada and LCF = 0, T1 = (T3 + (.48 * T3) - LCF)" do
       subject.province = "OS"
       subject.stub(:t3).and_return(6000)
       subject.stub(:lcf).and_return(0)
